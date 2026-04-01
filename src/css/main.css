@@ -109,8 +109,29 @@ header {
 }
 
 @media screen and (max-width: 575px) {
-  .homepage .header-box h1 {
+  .navbar {
+    padding: 10px 16px;
+  }
+
+  .navbar .fs-3 {
+    font-size: 1rem !important;
+  }
+
+  .nav-link-custom {
+    font-size: 10px !important;
+    letter-spacing: 0.04rem;
+  }
+
+  /* .homepage .header-box h1 {
     font-size: 3rem;
+  } */
+}
+
+@media screen and (max-width: 992px){
+  .dnl-wrapper {
+    margin: 0 auto;
+    width: 280px;
+    height: 280px;
   }
 }
 

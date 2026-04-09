@@ -119,9 +119,24 @@ header {
 
   .nav-link-custom {
     font-size: 10px !important;
-    letter-spacing: 0.04rem;
+    letter-spacing: 0.02em;
   }
 
+  .navbar .container {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  .navbar .navbar-brand {
+    font-size: 0.85rem !important;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .navbar .ms-auto {
+    gap: 8px !important;
+    flex-wrap: nowrap;
+  }
   /* .homepage .header-box h1 {
     font-size: 3rem;
   } */
@@ -221,7 +236,8 @@ header {
 
 .lc-headline em {
   font-style: italic;
-  color: #3a3a3a;
+  color: #111110;
+  /* color: #3a3a3a; */
 }
 
 .lc-services-label {

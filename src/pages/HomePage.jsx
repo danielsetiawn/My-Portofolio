@@ -32,7 +32,6 @@ const HeroSection = () => {
   return (
     <section className="hero-section w-100 min-vh-100 d-flex align-items-center justify-content-center text-center">
       <div className="hero-content">
-        <p className="hero-eyebrow">Hi, I'm Daniel Setiawan</p>
         <h1 className="hero-title">
           <span className="hero-typed">{displayed}</span>
           <span className="hero-cursor">|</span>
@@ -226,15 +225,15 @@ const HomePage = () => {
             <MarqueeRow />
           </div>
           <div className="lc-bottom">
-            <div>
-              <p className="lc-cta-sub">Minding a project? Let's talk.</p>
-              <a
-                className="lc-cta-btn"
-                href="mailto:daniel100setiawan@gmail.com?subject=Project inquiry"
-              >
-                Contact me
-              </a>
-            </div>
+  <div>
+    <p className="lc-cta-sub">Minding a project? Let's talk.</p>
+    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+    <a className="lc-cta-btn" href="mailto:daniel100setiawan@gmail.com?subject=Project inquiry"
+    >
+        Contact me
+      </a>
+    </div>
+  </div>
             <div className="lc-socials">
               <a href="https://www.linkedin.com/in/daniel-setiawan-03947231b/"
                 target="_blank" rel="noreferrer"

@@ -60,7 +60,7 @@ header {
 }
 
 .homepage {
-  background: linear-gradient(180deg, #0a0a0a 0%, #142f3d 30%, #54606c 60%, #95969e 85%, #dbd0d4 100%);
+  background: linear-gradient(180deg, #0a0a0a 0%, #142f3d 30%, #54606c 60%, #95969e 85%, #f5f4f0 100%);
   min-height: 100vh;
 }
 
@@ -73,8 +73,9 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: auto;
-  margin-right: 150px;
+  margin: 0 auto
+  /* margin-left: auto;
+  margin-right: 150px; */
 }
 
 .dnl-wrapper img {
@@ -136,7 +137,7 @@ header {
   .navbar .ms-auto {
     gap: 8px !important;
     flex-wrap: nowrap;
-  }
+  } 
   /* .homepage .header-box h1 {
     font-size: 3rem;
   } */

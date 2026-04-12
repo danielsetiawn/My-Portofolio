@@ -4,6 +4,23 @@ import HeroImage from '../assets/img/DNL.jpeg';
 
 const roles = ["Designer.", "Developer.", "Problem Solver."];
 
+const useReveal = () => {
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      }),
+      { threshold: 0.15 }
+    );
+    els.forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+};
+
 const HeroSection = () => {
   const [displayed, setDisplayed] = useState("");
   const [roleIndex, setRoleIndex] = useState(0);
@@ -113,7 +130,7 @@ const projects = [
 const ProjectsSection = () => {
   return (
     <section id="projects" className="ps-section">
-      <div className="ps-header">
+      <div className="ps-header reveal">
         <p className="ps-eyebrow">— Selected Work</p>
         <h2 className="ps-title">My Projects</h2>
       </div>
@@ -128,11 +145,11 @@ const ProjectsSection = () => {
             </div>
           );
           const metaBlock = (
-            <div className="ps-item-meta">
-              <span className="ps-item-num">{p.num}</span>
-              <h3 className="ps-item-title">{p.title}</h3>
-              <p className="ps-item-desc">{p.desc}</p>
-              <div className="ps-item-footer">
+            <div className="ps-item-meta reveal" style={{ textDecoration: 'none', transitionDelay: `${i * 0.1}s` }}>
+              <span className="ps-item-num reveal" style={{ textDecoration: 'none', transitionDelay: `${i * 0.1}s` }}>{p.num}</span>
+              <h3 className="ps-item-title reveal" style={{ textDecoration: 'none', transitionDelay: `${i * 0.1}s` }}>{p.title}</h3>
+              <p className="ps-item-desc reveal" style={{ textDecoration: 'none', transitionDelay: `${i * 0.1}s` }}>{p.desc}</p>
+              <div className="ps-item-footer reveal">
                 <div className="ps-tags">
                   {p.tags.map((t, j) => <span key={j} className="ps-tag">{t}</span>)}
                 </div>
@@ -168,6 +185,7 @@ const ProjectsSection = () => {
 };
 
 const HomePage = () => {
+    useReveal();
   return (
     <div className="homepage">
 
@@ -178,7 +196,7 @@ const HomePage = () => {
       <header id="about" className="w-100 min-vh-100 d-flex align-items-center">
         <Container>
           <Row className="header-box d-flex align-items-center">
-            <Col lg="6">
+            <Col lg="6" className='reveal'>
               <h1 className="mb-4">
                 Hello, I'm <br />
                 <span>Daniel Setiawan</span>
@@ -199,7 +217,7 @@ const HomePage = () => {
                 aren't just for show, but actually solve real problems and can keep improving over time.
               </p>
             </Col>
-            <Col lg="6" className="pt-lg-0 pt-5">
+            <Col lg="6" className="pt-lg-0 pt-5 reveal">
               <div className="dnl-wrapper">
                 <img src={HeroImage} alt="DNL-img" />
               </div>

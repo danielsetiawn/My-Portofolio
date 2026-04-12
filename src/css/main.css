@@ -1,19 +1,19 @@
 * {
-  font-family: "Poppins", serif;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .homepage .header-box h1 span {
-  font-family: 'Yeseva One', serif !important;
+  font-family: 'DM Serif Display', serif !important;
   font-weight: 400 !important;
 }
 
 .navbar .navbar-brand {
-  font-family: 'Yeseva One', serif !important;
+  font-family: 'DM Serif Display', serif !important;
   font-weight: 400 !important;
 }
 
 .homepage .header-box h1 {
-  font-family: 'Yeseva One', serif !important;
+  font-family: 'DM Serif Display', serif !important;
   font-weight: 400 !important;
 }
 
@@ -120,6 +120,7 @@ header {
 
   .nav-link-custom {
     font-size: 10px !important;
+    color: rgba(255, 255, 255, 0.7);
     letter-spacing: 0.02em;
   }
 
@@ -193,12 +194,14 @@ header {
   bottom: -4px;
   width: 0%;
   height: 1px;
-  background: #111110;
+  /* background: #111110; */
+  background: rgba(255, 255, 255, 0.7);
   transition: width 0.3s ease;
 }
 
 .nav-link-custom:hover {
-  color: #444444 !important;
+  /* color: #444444 !important; */
+  color: #ffffff !important;
 }
 
 .nav-link-custom:hover::after {
@@ -210,6 +213,7 @@ header {
   width: 100%;
   padding: 100px 64px 72px;
   overflow: hidden;
+  /* background: linear-gradient(180deg, transparent 0%, #f5f4f0 8%); */
   color: #111110;
 }
 
@@ -226,7 +230,7 @@ header {
 }
 
 .lc-headline {
-  font-family: 'DM Serif Display', serif;
+  font-family: 'DM Serif Display', serif !important;
   font-size: clamp(52px, 9vw, 96px);
   font-weight: 400;
   line-height: 0.93;
@@ -517,7 +521,8 @@ html {
 }
 
 .ps-title {
-  font-family: 'Playfair Display', serif;
+  /* font-family: 'Playfair Display', serif; */
+  font-family: 'DM Serif Display', serif !important;
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 400;
   color: rgba(255, 255, 255, 0.75);
@@ -560,7 +565,7 @@ html {
 }
 
 .ps-item-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'DM Serif Display', serif !important;
   font-size: 1.5rem;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.9);
@@ -626,4 +631,23 @@ html {
 
 @media (max-width: 600px) {
   .ps-item { grid-template-columns: 1fr; gap: 1.25rem; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

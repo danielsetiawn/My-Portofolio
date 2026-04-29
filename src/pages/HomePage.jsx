@@ -1,275 +1,206 @@
 import { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import HeroImage from '../assets/img/DNL.jpeg';
+import { projects } from '../data/index';
 
-const roles = ["Designer.", "Developer.", "Problem Solver."];
-
+/* ── Scroll reveal hook ─────────────────────────── */
 const useReveal = () => {
   useEffect(() => {
     const els = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver(
-      (entries) => entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
       }),
-      { threshold: 0.15 }
+      { threshold: 0.12 }
     );
-    els.forEach(el => observer.observe(el));
+    els.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 };
 
-const HeroSection = () => {
-  const [displayed, setDisplayed] = useState("");
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-  const [deleting, setDeleting] = useState(false);
-
-  useEffect(() => {
-    const current = roles[roleIndex];
-    let timeout;
-
-    if (!deleting && charIndex < current.length) {
-      timeout = setTimeout(() => setCharIndex(i => i + 1), 100);
-    } else if (!deleting && charIndex === current.length) {
-      timeout = setTimeout(() => setDeleting(true), 1500);
-    } else if (deleting && charIndex > 0) {
-      timeout = setTimeout(() => setCharIndex(i => i - 1), 50);
-    } else if (deleting && charIndex === 0) {
-      setDeleting(false);
-      setRoleIndex(i => (i + 1) % roles.length);
-    }
-
-    setDisplayed(current.slice(0, charIndex));
-    return () => clearTimeout(timeout);
-  }, [charIndex, deleting, roleIndex]);
-
-  return (
-    <section className="hero-section w-100 min-vh-100 d-flex align-items-center justify-content-center text-center">
-      <div className="hero-content">
-        <h1 className="hero-title">
-          <span className="hero-typed">{displayed}</span>
-          <span className="hero-cursor">|</span>
-        </h1>
-        <p className="hero-sub">Computer Science undergraduate at BINUS University</p>
+/* ── Hero Section ───────────────────────────────── */
+const HeroSection = () => (
+  <section className="ds-hero">
+    <div className="ds-label" style={{ marginBottom: '44px' }}>Portfolio — 2026</div>
+    <h1 className="ds-hero-name">
+      Daniel<br />
+      <span className="ds-hero-italic">Setiawan</span>
+    </h1>
+    <div className="ds-hero-bottom">
+      <div className="ds-hero-role">
+        CS Student @ BINUS University<br />
+        Full Stack Developer &amp; UI/UX Designer<br />
+        Jakarta, Indonesia
       </div>
-    </section>
-  );
-};
-
-const services = [
-  "UI/UX Design",
-  "Frontend Development",
-  "Backend Development",
-  "Full Stack Projects",
-  "Open Source Collab",
-  "Internship & Work",
-];
-
-const MarqueeRow = () => (
-  <div className="lc-row">
-    <div className="lc-row-bg" />
-    <div className="lc-marquee-viewport">
-      <div className="lc-marquee-track">
-        {[0, 1, 2, 3].map((s) => (
-          <span key={s} className="lc-marquee-set" aria-hidden={s > 0 ? true : undefined}>
-            {services.map((label, i) => (
-              <a key={i} href="mailto:daniel100setiawan@gmail.com?subject=Let's work together">
-                {label}<span className="sep">✦</span>
-              </a>
-            ))}
-          </span>
-        ))}
-      </div>
+      <div className="ds-label">Scroll to explore ↓</div>
+      <button
+        className="ds-hero-cta"
+        onClick={() => {
+          const el = document.getElementById('works');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }}
+      >
+        View My Work ↗
+      </button>
     </div>
-    <span className="lc-row-arrow">↗</span>
+  </section>
+);
+
+/* ── Marquee Strip ──────────────────────────────── */
+const marqueeItems = ['React', 'Node.js', 'UI/UX Design', 'Full Stack', 'TypeScript', 'Next.js', 'Open to Work', 'BINUS University'];
+
+const MarqueeStrip = () => (
+  <div className="ds-marquee-strip">
+    <div className="ds-marquee-inner">
+      {[...marqueeItems, ...marqueeItems].map((item, i) => (
+        <span key={i}>{item}</span>
+      ))}
+    </div>
   </div>
 );
 
-const projects = [
-  {
-    num: "01",
-    title: "E-Commerce Platform",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores voluptates, a nihil impedit voluptatibus hic ipsa doloribus enim dolorum, quae dolor necessitatibus, fugit labore aut aperiam aliquam ut! Optio, animi?",
-    tags: ["React", "Node.js", "MongoDB", "Stripe"],
-    image: null,
-    github: "https://github.com/danielsetiawn",
-    live: "#",
-  },
-  {
-    num: "02",
-    title: "Task Management App",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores voluptates, a nihil impedit voluptatibus hic ipsa doloribus enim dolorum, quae dolor necessitatibus, fugit labore aut aperiam aliquam ut! Optio, animi?",
-    tags: ["Next.js", "TypeScript", "Prisma", "WebSocket"],
-    image: null,
-    github: "https://github.com/danielsetiawn",
-    live: "#",
-  },
-  {
-    num: "03",
-    title: "AI Chat Interface",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores voluptates, a nihil impedit voluptatibus hic ipsa doloribus enim dolorum, quae dolor necessitatibus, fugit labore aut aperiam aliquam ut! Optio, animi?",
-    tags: ["React", "Python", "FastAPI", "OpenAI"],
-    image: null,
-    github: "https://github.com/danielsetiawn",
-    live: null,
-  },
-  {
-    num: "04",
-    title: "Portfolio Website",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores voluptates, a nihil impedit voluptatibus hic ipsa doloribus enim dolorum, quae dolor necessitatibus, fugit labore aut aperiam aliquam ut! Optio, animi?",
-    tags: ["React", "Bootstrap", "CSS Animations"],
-    image: null,
-    github: "https://github.com/danielsetiawn",
-    live: "#",
-  },
-];
+/* ── About Section ──────────────────────────────── */
+const AboutSection = () => {
+  const [repoCount, setRepoCount] = useState(null);
 
-const ProjectsSection = () => {
+  useEffect(() => {
+    fetch('https://api.github.com/users/danielsetiawn/repos?per_page=100')
+      .then(res => res.json())
+      .then(repos => {
+        if (Array.isArray(repos)) setRepoCount(repos.length);
+        else setRepoCount(0);
+      })
+      .catch(() => setRepoCount(0));
+  }, []);
+
   return (
-    <section id="projects" className="ps-section">
-      <div className="ps-header reveal">
-        <p className="ps-eyebrow">— Selected Work</p>
-        <h2 className="ps-title">My Projects</h2>
+    <section id="about" className="ds-about-section">
+      <div className="ds-about-left reveal">
+        <div className="ds-label" style={{ marginBottom: '16px' }}>01 — About</div>
+        <div className="ds-stat-grid">
+          <div className="ds-stat">
+            <span className="ds-stat-num">2+</span>
+            <span className="ds-stat-lbl">Years</span>
+          </div>
+          <div className="ds-stat">
+            <span className="ds-stat-num">10+</span>
+            <span className="ds-stat-lbl">Projects</span>
+          </div>
+          <div className="ds-stat">
+            <span className="ds-stat-num">{repoCount ?? '—'}</span>
+            <span className="ds-stat-lbl">GitHub Repos</span>
+          </div>
+          <div className="ds-stat">
+            <span className="ds-stat-num">5+</span>
+            <span className="ds-stat-lbl">Tech Stacks</span>
+          </div>
+        </div>
       </div>
-
-      <div className="ps-list">
-        {projects.map((p, i) => {
-          const imgBlock = (
-            <div className="ps-img-wrap">
-              {p.image
-                ? <img src={p.image} alt={p.title} className="ps-img" />
-                : <div className="ps-img-placeholder" />}
-            </div>
-          );
-          const metaBlock = (
-            <div className="ps-item-meta reveal" style={{ textDecoration: 'none', transitionDelay: `${i * 0.1}s` }}>
-              <span className="ps-item-num reveal" style={{ textDecoration: 'none', transitionDelay: `${i * 0.1}s` }}>{p.num}</span>
-              <h3 className="ps-item-title reveal" style={{ textDecoration: 'none', transitionDelay: `${i * 0.1}s` }}>{p.title}</h3>
-              <p className="ps-item-desc reveal" style={{ textDecoration: 'none', transitionDelay: `${i * 0.1}s` }}>{p.desc}</p>
-              <div className="ps-item-footer reveal">
-                <div className="ps-tags">
-                  {p.tags.map((t, j) => <span key={j} className="ps-tag">{t}</span>)}
-                </div>
-              </div>
-            </div>
-          );
-
-          return (
-            <a
-              key={i}
-              href={p.live || p.github}
-              target="_blank"
-              rel="noreferrer"
-              className="ps-item"
-              style={{ textDecoration: 'none' }}
-            >
-              {i % 2 === 0 ? <>{imgBlock}{metaBlock}</> : <>{metaBlock}{imgBlock}</>}
-            </a>
-          );
-        })}
+      <div className="ds-about-right reveal">
+        <h2 className="ds-about-big">
+          I build things<br />
+          people <em>actually</em><br />
+          use.
+        </h2>
+        <p className="ds-about-body">
+          CS student at BINUS who's into building from both ends — logic that runs clean, interfaces that feel right.
+          I learn by breaking things, then fixing them better.
+        </p>
       </div>
-
-      <a
-        href="https://github.com/danielsetiawn"
-        target="_blank"
-        rel="noreferrer"
-        className="ps-archive"
-      >
-        View full archive &nbsp;↗
-      </a>
     </section>
   );
 };
 
-const HomePage = () => {
-    useReveal();
-  return (
-    <div className="homepage">
-
-      {/* ── HERO ── */}
-      <HeroSection />
-
-      {/* ── ABOUT ── */}
-      <header id="about" className="w-100 min-vh-100 d-flex align-items-center">
-        <Container>
-          <Row className="header-box d-flex align-items-center">
-            <Col lg="6" className='reveal'>
-              <h1 className="mb-4">
-                Hello, I'm <br />
-                <span>Daniel Setiawan</span>
-              </h1>
-              <p className="mb-4">
-                I'm a Computer Science student at BINUS University who likes building stuff
-                and figuring out how things work behind the scenes. I got into tech because it's interesting
-                how something as simple as code can turn into something people actually use every day.
-              </p>
-              <p>
-                I enjoy working on both sides, sometimes I'm focused on the logic
-                and making things run better, other times I'm thinking about how it looks and feels for the user.
-                I just like making things that work well and make sense.
-              </p>
-              <p>
-                Most of what I learn comes from building and experimenting,
-                breaking things, and then fixing them again. I'm especially interested in creating projects that
-                aren't just for show, but actually solve real problems and can keep improving over time.
-              </p>
-            </Col>
-            <Col lg="6" className="pt-lg-0 pt-5 reveal">
-              <div className="dnl-wrapper">
-                <img src={HeroImage} alt="DNL-img" />
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </header>
-
-      {/* ── PROJECTS ── */}
-      <ProjectsSection />
-
-      {/* ── CONTACTS ── */}
-      <section id="contacts" className="lc-section">
-        <Container fluid className="px-0">
-          <div className="lc-top">
-            <p className="lc-eyebrow">— Get in touch</p>
-            <h2 className="lc-headline">
-              Let's<br /><em>Connect</em>
-            </h2>
-            <p className="lc-services-label">I'm always open to</p>
-          </div>
-          <div className="lc-services">
-            <MarqueeRow />
-          </div>
-          <div className="lc-bottom">
-  <div>
-    <p className="lc-cta-sub">Minding a project? Let's talk.</p>
-    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-    <a className="lc-cta-btn" href="mailto:daniel100setiawan@gmail.com?subject=Project inquiry"
-    >
-        Contact me
-      </a>
+/* ── Works Section ──────────────────────────────── */
+const WorksSection = () => (
+  <section id="works" className="ds-works-section">
+    <div className="ds-works-header">
+      <h2 className="ds-works-title">Selected Work</h2>
+      <span className="ds-label">02 — Projects</span>
     </div>
-  </div>
-            <div className="lc-socials">
-              <a href="https://www.linkedin.com/in/daniel-setiawan-03947231b/"
-                target="_blank" rel="noreferrer"
-                className="nav-link-custom"
-              >LinkedIn</a>
-              <a href="https://www.instagram.com/daniel_setiawn/"
-                target="_blank" rel="noreferrer"
-                className="nav-link-custom"
-              >Instagram</a>
-              <a href="https://github.com/danielsetiawn"
-                target="_blank" rel="noreferrer"
-                className="nav-link-custom"
-              >GitHub</a>
+    {/* <div>
+      {projects.map((p, i) => (
+        <a
+          key={i}
+          href={p.live || p.github}
+          target="_blank"
+          rel="noreferrer"
+          className="ds-project-row reveal"
+          style={{ transitionDelay: `${i * 0.07}s` }}
+        >
+          <span className="ds-proj-num">{p.num}</span>
+          <div>
+            <div className="ds-proj-title">{p.title}</div>
+            <div className="ds-proj-tags">
+              {p.tags.map((t, j) => <span key={j} className="ds-proj-tag">{t}</span>)}
             </div>
           </div>
-        </Container>
-      </section>
+          <span className="ds-proj-arrow">↗</span>
+        </a>
+      ))}
+    </div> */}
+  </section>
+);
 
+/* ── Contact Section ────────────────────────────── */
+const ContactSection = () => (
+  <section id="contacts" className="ds-contact-section">
+    <div className="ds-contact-left reveal">
+      <div className="ds-label">03 — Contact</div>
+      <h2 className="ds-contact-big">
+        Let's<br /><em>work</em><br />together.
+      </h2>
+    </div>
+    <div className="ds-contact-right reveal">
+      <div>
+        <div className="ds-label" style={{ marginBottom: '14px' }}>Get in touch</div>
+        <a className="ds-contact-email" href="mailto:daniel100setiawan@gmail.com">
+          daniel100setiawan@gmail.com
+        </a>
+      </div>
+      <div>
+        <div className="ds-label" style={{ marginBottom: '12px' }}>Find me on</div>
+        <div className="ds-socials">
+          <a className="ds-social" href="https://github.com/danielsetiawn" target="_blank" rel="noreferrer">GitHub</a>
+          <a className="ds-social" href="https://www.linkedin.com/in/daniel-setiawan-03947231b/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a className="ds-social" href="https://www.instagram.com/daniel_setiawn/" target="_blank" rel="noreferrer">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+/* ── Footer ─────────────────────────────────────── */
+const Footer = () => {
+  const [time, setTime] = useState(
+    new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+  );
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime(new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <footer className="ds-footer">
+      <span className="ds-footer-copy">© 2026 Daniel Setiawan</span>
+      <span className="ds-footer-copy">Local Time — {time}</span>
+      <span className="ds-footer-copy">Jakarta, Indonesia</span>
+    </footer>
+  );
+};
+
+/* ── HomePage (main export) ─────────────────────── */
+const HomePage = () => {
+  useReveal();
+  return (
+    <div className="ds-porto">
+      <HeroSection />
+      <MarqueeStrip />
+      <AboutSection />
+      <WorksSection />
+      <ContactSection />
+      <Footer />
     </div>
   );
 };
